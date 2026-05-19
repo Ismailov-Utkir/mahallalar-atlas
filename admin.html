@@ -1,8 +1,8 @@
-<!DOCTYPE html>
-<html lang="uz-Cyrl">
+﻿<!DOCTYPE html>
+<html lang="uz">
 <head>
 <meta charset="UTF-8">
-<title>Админ панел · Ўзбекистон Маҳаллалари Уюшмаси</title>
+<title>Admin panel · O‘zbekiston Mahallalari Uyushmasi</title>
 <meta name="viewport" content="width=1280, initial-scale=1.0">
 <style>
 :root {
@@ -305,22 +305,22 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
 
 <div class="login-overlay" id="login">
   <div class="login-card">
-    <div class="login-mark">Ў</div>
-    <h2>Кириш</h2>
-    <p class="login-sub">Ўзбекистон Маҳаллалари Уюшмаси · бошқарув тизими</p>
+    <div class="login-mark">O‘</div>
+    <h2>Kirish</h2>
+    <p class="login-sub">O‘zbekiston Mahallalari Uyushmasi · boshqaruv tizimi</p>
     <form onsubmit="event.preventDefault(); login();">
       <div class="field">
-        <label>Фойдаланувчи номи</label>
+        <label>Foydalanuvchi nomi</label>
         <input type="text" value="admin" autocomplete="username">
       </div>
       <div class="field">
-        <label>Парол</label>
+        <label>Parol</label>
         <input type="password" value="••••••••" autocomplete="current-password">
       </div>
-      <button type="submit" class="btn btn-primary btn-full">Тизимга кириш</button>
+      <button type="submit" class="btn btn-primary btn-full">Tizimga kirish</button>
     </form>
     <p style="margin-top: 22px; text-align: center; font-style: italic; font-size: 11.5px; color: var(--gray-400);">
-      Парол ёки кириш муаммосида тизим маъмурига мурожаат қилинг.
+      Parol yoki kirish muammosida tizim maʼmuriga murojaat qiling.
     </p>
   </div>
 </div>
@@ -329,58 +329,58 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
 
   <aside class="sidebar">
     <div class="side-brand">
-      <div class="side-mark">Ў</div>
+      <div class="side-mark">O‘</div>
       <div>
-        <h1>МАҲАЛЛАЛАР УЮШМАСИ</h1>
-        <small>Тадбирлар атласи · админ панел</small>
+        <h1>MAHALLALAR UYuShMASI</h1>
+        <small>Tadbirlar atlasi · admin panel</small>
       </div>
     </div>
 
     <nav class="side-nav">
-      <div class="nav-section">Бошқарув</div>
+      <div class="nav-section">Boshqaruv</div>
       <a href="#" class="active">
         <svg viewBox="0 0 24 24"><path d="M3 12 12 3l9 9M5 10v10h14V10"/></svg>
-        Бош саҳифа
+        Bosh sahifa
       </a>
       <a href="#new">
         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-        Янги тадбир қўшиш
+        Yangi tadbir qo‘shish
       </a>
       <a href="#events">
         <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        Барча тадбирлар
+        Barcha tadbirlar
       </a>
       <a href="#photos">
         <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
-        Расмлар архиви
+        Rasmlar arxivi
       </a>
-      <div class="nav-section">Ҳудудлар</div>
+      <div class="nav-section">Hududlar</div>
       <a href="#regions">
         <svg viewBox="0 0 24 24"><path d="M12 22s-8-7-8-13a8 8 0 0 1 16 0c0 6-8 13-8 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        Картадаги ҳудудлар
+        Kartadagi hududlar
       </a>
       <a href="#districts">
         <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
-        Туман ва маҳаллалар
+        Tuman va mahallalar
       </a>
-      <div class="nav-section">Тизим</div>
+      <div class="nav-section">Tizim</div>
       <a href="#users">
         <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-        Фойдаланувчилар
+        Foydalanuvchilar
       </a>
       <a href="#settings">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Созламалар
+        Sozlamalar
       </a>
     </nav>
 
     <div class="side-user">
-      <div class="user-avatar">М</div>
+      <div class="user-avatar">M</div>
       <div class="user-info">
-        <strong>Маъмур</strong>
+        <strong>Maʼmur</strong>
         <small>admin@mahallas.uz</small>
       </div>
-      <div class="user-logout" title="Чиқиш" onclick="document.getElementById('login').classList.remove('hidden');">
+      <div class="user-logout" title="Chiqish" onclick="document.getElementById('login').classList.remove('hidden');">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
       </div>
     </div>
@@ -390,15 +390,15 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
 
     <div class="topbar">
       <div class="page-title">
-        <h2>Бош саҳифа</h2>
-        <span class="crumbs">админ панел</span>
+        <h2>Bosh sahifa</h2>
+        <span class="crumbs">admin panel</span>
       </div>
       <div class="topbar-actions">
         <button class="btn" onclick="window.location.href='/'">
           <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 22s-8-7-8-13a8 8 0 0 1 16 0c0 6-8 13-8 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          Жамоат картасига ўтиш
+          Jamoat kartasiga o‘tish
         </button>
-        <button class="btn btn-gold" onclick="scrollToForm()">+ Янги тадбир</button>
+        <button class="btn btn-gold" onclick="scrollToForm()">+ Yangi tadbir</button>
       </div>
     </div>
 
@@ -406,24 +406,24 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="label">Жорий ой</div>
+          <div class="label">Joriy oy</div>
           <div class="num">0</div>
-          <div class="delta">тадбир</div>
+          <div class="delta">tadbir</div>
         </div>
         <div class="stat-card gold">
-          <div class="label">Йил бошидан</div>
+          <div class="label">Yil boshidan</div>
           <div class="num">0</div>
-          <div class="delta">тадбир</div>
+          <div class="delta">tadbir</div>
         </div>
         <div class="stat-card">
-          <div class="label">Юкланган расмлар</div>
+          <div class="label">Yuklangan rasmlar</div>
           <div class="num">0</div>
-          <div class="delta">расм</div>
+          <div class="delta">rasm</div>
         </div>
         <div class="stat-card warm">
-          <div class="label">Кутилмоқда</div>
+          <div class="label">Kutilmoqda</div>
           <div class="num">0</div>
-          <div class="delta">текширилмоқда</div>
+          <div class="delta">tekshirilmoqda</div>
         </div>
       </div>
 
@@ -431,88 +431,88 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
 
         <div class="card" id="new">
           <div class="card-header">
-            <h3>Янги тадбир қўшиш</h3>
-            <span class="eyebrow">Маълумотлар</span>
+            <h3>Yangi tadbir qo‘shish</h3>
+            <span class="eyebrow">Maʼlumotlar</span>
           </div>
           <div class="card-body">
             <form onsubmit="event.preventDefault(); submitEvent();">
               <div class="form-grid">
 
                 <div class="field">
-                  <label>Вилоят / Республика *</label>
+                  <label>Viloyat / Respublika *</label>
                   <select id="f-region" onchange="loadDistricts()">
-                    <option value="">— танланг —</option>
-                    <option value="qq">Қорақалпоғистон Республикаси</option>
-                    <option value="xrz">Хоразм вилояти</option>
-                    <option value="nvy">Навоий вилояти</option>
-                    <option value="bxr">Бухоро вилояти</option>
-                    <option value="qsh">Қашқадарё вилояти</option>
-                    <option value="sxn">Сурхондарё вилояти</option>
-                    <option value="smr">Самарқанд вилояти</option>
-                    <option value="jiz">Жиззах вилояти</option>
-                    <option value="sir">Сирдарё вилояти</option>
-                    <option value="tsh-v">Тошкент вилояти</option>
-                    <option value="tsh-c">Тошкент шаҳри</option>
-                    <option value="nmn">Наманган вилояти</option>
-                    <option value="frg">Фарғона вилояти</option>
-                    <option value="and">Андижон вилояти</option>
+                    <option value="">— tanlang —</option>
+                    <option value="qq">Qoraqalpog‘iston Respublikasi</option>
+                    <option value="xrz">Xorazm viloyati</option>
+                    <option value="nvy">Navoiy viloyati</option>
+                    <option value="bxr">Buxoro viloyati</option>
+                    <option value="qsh">Qashqadaryo viloyati</option>
+                    <option value="sxn">Surxondaryo viloyati</option>
+                    <option value="smr">Samarqand viloyati</option>
+                    <option value="jiz">Jizzax viloyati</option>
+                    <option value="sir">Sirdaryo viloyati</option>
+                    <option value="tsh-v">Toshkent viloyati</option>
+                    <option value="tsh-c">Toshkent shahri</option>
+                    <option value="nmn">Namangan viloyati</option>
+                    <option value="frg">Farg‘ona viloyati</option>
+                    <option value="and">Andijon viloyati</option>
                   </select>
                 </div>
 
                 <div class="field">
-                  <label>Туман / Шаҳар *</label>
-                  <select id="f-district"><option value="">— аввал вилоятни танланг —</option></select>
+                  <label>Tuman / Shahar *</label>
+                  <select id="f-district"><option value="">— avval viloyatni tanlang —</option></select>
                 </div>
 
                 <div class="field full">
-                  <label>Маҳалла *</label>
-                  <input type="text" id="f-mahalla" placeholder="Маҳалла номини киритинг (масалан: Регистон МФЙ)">
+                  <label>Mahalla *</label>
+                  <input type="text" id="f-mahalla" placeholder="Mahalla nomini kiriting (masalan: Registon MFY)">
                 </div>
 
                 <div class="field full">
-                  <label>Тадбир номи *</label>
-                  <input type="text" id="f-title" placeholder="Тадбир номини киритинг">
+                  <label>Tadbir nomi *</label>
+                  <input type="text" id="f-title" placeholder="Tadbir nomini kiriting">
                 </div>
 
                 <div class="field">
-                  <label>Ўтказилган сана *</label>
+                  <label>O‘tkazilgan sana *</label>
                   <input type="date" id="f-date">
                 </div>
 
                 <div class="field">
-                  <label>Иштирокчилар сони *</label>
+                  <label>Ishtirokchilar soni *</label>
                   <input type="number" id="f-count" placeholder="0" min="1">
                 </div>
 
                 <div class="field full">
-                  <label>Тадбир турини танланг *</label>
+                  <label>Tadbir turini tanlang *</label>
                   <select id="f-type">
-                    <option>Маҳалла йиғилиши</option>
-                    <option>Маънавий-маърифий учрашув</option>
-                    <option>Кўчат экиш / ободонлаштириш</option>
-                    <option>Тинчлик ва осойишталик кенгаши</option>
-                    <option>Ёшлар форуми</option>
-                    <option>Спорт мусобақаси ("5 ташаббус")</option>
-                    <option>"Темир дафтар" / "Аёллар дафтари" иш</option>
-                    <option>Бошқа</option>
+                    <option>Mahalla yig‘ilishi</option>
+                    <option>Maʼnaviy-maʼrifiy uchrashuv</option>
+                    <option>Ko‘chat ekish / obodonlashtirish</option>
+                    <option>Tinchlik va osoyishtalik kengashi</option>
+                    <option>Yoshlar forumi</option>
+                    <option>Sport musobaqasi ("5 tashabbus")</option>
+                    <option>"Temir daftar" / "Ayollar daftari" ish</option>
+                    <option>Boshqa</option>
                   </select>
                 </div>
 
                 <div class="field full">
-                  <label>Қисқача баён</label>
-                  <textarea id="f-desc" placeholder="Тадбир ҳақида қисқача маълумот, асосий мавзу, натижалар…"></textarea>
-                  <div class="field-hint">Иложи борича аниқ ва қисқа ёзинг — кейин қидиришда қулай бўлади.</div>
+                  <label>Qisqacha bayon</label>
+                  <textarea id="f-desc" placeholder="Tadbir haqida qisqacha maʼlumot, asosiy mavzu, natijalar…"></textarea>
+                  <div class="field-hint">Iloji boricha aniq va qisqa yozing — keyin qidirishda qulay bo‘ladi.</div>
                 </div>
 
                 <div class="field full">
-                  <label>Расмлар (бир неча расм юклаш мумкин)</label>
+                  <label>Rasmlar (bir necha rasm yuklash mumkin)</label>
                   <label class="upload-zone" id="upload-zone">
                     <input type="file" multiple accept="image/*" style="display: none;" id="file-input" onchange="handleFiles(this.files)">
                     <div class="upload-icon">
                       <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
                     </div>
-                    <strong>Файлларни шу ерга судраб ташланг</strong>
-                    <small>ёки босинг — JPG, PNG, WebP · ҳажмига чек йўқ</small>
+                    <strong>Fayllarni shu erga sudrab tashlang</strong>
+                    <small>yoki bosing — JPG, PNG, WebP · hajmiga chek yo‘q</small>
                   </label>
                   <div class="upload-preview" id="preview"></div>
                 </div>
@@ -520,10 +520,10 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
               </div>
 
               <div class="form-footer">
-                <span class="hint">Юлдузча (*) билан белгиланганлар мажбурий</span>
+                <span class="hint">Yulduzcha (*) bilan belgilanganlar majburiy</span>
                 <div style="display: flex; gap: 10px;">
-                  <button type="button" class="btn">Бекор қилиш</button>
-                  <button type="submit" class="btn btn-primary">Сақлаш</button>
+                  <button type="button" class="btn">Bekor qilish</button>
+                  <button type="submit" class="btn btn-primary">Saqlash</button>
                 </div>
               </div>
             </form>
@@ -532,29 +532,29 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
 
         <div class="card">
           <div class="card-header">
-            <h3>Сўнгги ҳаракатлар</h3>
-            <span class="eyebrow">Бугун</span>
+            <h3>So‘nggi harakatlar</h3>
+            <span class="eyebrow">Bugun</span>
           </div>
-          <div class="empty-state">Ҳозирча тадбирлар йўқ</div>
+          <div class="empty-state">Hozircha tadbirlar yo‘q</div>
         </div>
 
       </div>
 
       <div class="event-table-wrap" id="events" style="margin-top: 28px;">
         <div class="card-header">
-          <h3>Барча тадбирлар</h3>
-          <span class="eyebrow">0 та ёзув</span>
+          <h3>Barcha tadbirlar</h3>
+          <span class="eyebrow">0 ta yozuv</span>
         </div>
         <div class="table-controls">
-          <input type="text" class="search-input" placeholder="Тадбир номи, ҳудуд бўйича қидириш…">
+          <input type="text" class="search-input" placeholder="Tadbir nomi, hudud bo‘yicha qidirish…">
           <select style="padding: 9px 13px; background: var(--white); border: 1px solid var(--gray-200);">
-            <option>Барча вилоятлар</option>
+            <option>Barcha viloyatlar</option>
           </select>
           <select style="padding: 9px 13px; background: var(--white); border: 1px solid var(--gray-200);">
-            <option>Барча ойлар</option>
+            <option>Barcha oylar</option>
           </select>
         </div>
-        <div class="empty-state">Ҳали бирорта тадбир киритилмаган</div>
+        <div class="empty-state">Hali birorta tadbir kiritilmagan</div>
       </div>
 
     </div>
@@ -563,25 +563,25 @@ input, select, textarea { font-size: inherit; color: var(--ink); }
 </div>
 
 <div class="toast" id="toast">
-  <strong>Сақланди</strong> · тадбир муваффақиятли қўшилди
+  <strong>Saqlandi</strong> · tadbir muvaffaqiyatli qo‘shildi
 </div>
 
 <script>
 const DISTRICTS = {
-  'and': ['Олтинкўл тумани','Андижон тумани','Балиқчи тумани','Бўз тумани','Булоқбоши тумани','Жалақудуқ тумани','Избоскан тумани','Улуғнор тумани','Қўрғонтепа тумани','Асака тумани','Мархамат тумани','Шаҳрихон тумани','Пахтаобод тумани','Хўжаобод тумани','Андижон','Хонобод'],
-  'bxr': ['Олот тумани','Бухоро тумани','Вобкент тумани','Ғиждувон тумани','Когон тумани','Қоракўл тумани','Қоровулбозор тумани','Пешку тумани','Ромитан тумани','Жондор тумани','Шофиркон тумани','Бухоро','Когон'],
-  'frg': ['Олтиариқ тумани','Қўштепа тумани','Боғдод тумани','Бувайда тумани','Бешариқ тумани','Қува тумани','Учкўприк тумани','Риштон тумани','Сўх тумани','Тошлоқ тумани','Ўзбекистон тумани','Фарғона тумани','Данғара тумани','Фурқат тумани','Ёзёвон тумани','Фарғона','Қўқон','Қувасой','Марғилон'],
-  'jiz': ['Арнасой тумани','Бахмал тумани','Ғаллаорол тумани','Дўстлик тумани','Зомин тумани','Зарбдор тумани','Мирзачўл тумани','Зафаробод тумани','Пахтакор тумани','Фориш тумани','Янгиобод тумани','Жиззах','Ш.Рашидов тумани'],
-  'nmn': ['Мингбулоқ тумани','Косонсой тумани','Наманган тумани','Норин тумани','Поп тумани','Тўрақўрғон тумани','Уйчи тумани','Учқўрғон тумани','Чортоқ тумани','Чуст тумани','Янгиқўрғон тумани','Наманган','Давлатобод тумани','Янги Наманган тумани'],
-  'nvy': ['Конимех тумани','Қизилтепа тумани','Навбаҳор тумани','Кармана тумани','Нурота тумани','Томди тумани','Учқудуқ тумани','Хатирчи тумани','Навоий','Зарафшон','Ғозғон тумани'],
-  'qq': ['Амударё тумани','Беруний тумани','Қораўзак тумани','Кегейли тумани','Қўнғирот тумани','Қанликўл тумани','Мўйноқ тумани','Нукус тумани','Тахиатош тумани','Тахтакўпир тумани','Тўрткўл тумани','Хўжайли тумани','Чимбой тумани','Шуманай тумани','Элликқалъа тумани','Нукус','Бўзатов тумани'],
-  'qsh': ['Ғузор тумани','Деҳқонобод тумани','Қамаши тумани','Қарши тумани','Косон тумани','Китоб тумани','Миришкор тумани','Муборак тумани','Нишон тумани','Касби тумани','Чироқчи тумани','Шаҳрисабз тумани','Яккабоғ тумани','Қарши','Шаҳрисабз','Кўкдала тумани'],
-  'sir': ['Оқолтин тумани','Боёвут тумани','Сайхунобод тумани','Гулистон тумани','Сардоба тумани','Мирзаобод тумани','Сирдарё тумани','Ховос тумани','Гулистон','Ширин','Янгиер','Бахт шахар'],
-  'smr': ['Оқдарё тумани','Булунғур тумани','Жомбой тумани','Иштихон тумани','Каттақўрғон тумани','Қўшработ тумани','Нарпай тумани','Паяриқ тумани','Пастдарғом тумани','Пахтачи тумани','Самарқанд тумани','Нуробод тумани','Ургут тумани','Тайлоқ тумани','Самарқанд','Каттақўрғон'],
-  'sxn': ['Олтинсой тумани','Ангор тумани','Бойсун тумани','Музработ тумани','Денов тумани','Жарқўрғон тумани','Қумқўрғон тумани','Қизириқ тумани','Сариосиё тумани','Термиз тумани','Узун тумани','Шеробод тумани','Шўрчи тумани','Термиз','Бандихон тумани'],
-  'tsh-c': ['Учтепа тумани','Бектемир тумани','Юнусобод тумани','Мирзо Улуғбек тумани','Миробод тумани','Шайхонтоҳур тумани','Олмазор тумани','Сирғали тумани','Яккасарой тумани','Яшнобод тумани','Чилонзор тумани','Тошкент шаҳрининг туманлари','Янгиҳаёт тумани'],
-  'tsh-v': ['Оққўрғон тумани','Оҳангарон тумани','Бекобод тумани','Бўстонлиқ тумани','Бўка тумани','Зангиота тумани','Юқоричирчиқ тумани','Қибрай тумани','Паркент тумани','Пискент тумани','Ўртачирчиқ тумани','Чиноз тумани','Янгийўл тумани','Тошкент тумани','Нурафшон','Олмалиқ','Ангрен','Бекобод','Оҳангарон','Чирчиқ','Янгийўл','Қуйичирчиқ тумани'],
-  'xrz': ['Боғот тумани','Гурлан тумани','Қўшкўпир тумани','Урганч тумани','Хазорасп тумани','Хонқа тумани','Хива тумани','Шовот тумани','Янгиариқ тумани','Янгибозор тумани','Урганч','Хива','Тупроққалъа тумани'],
+  'and': ['Oltinko‘l tumani','Andijon tumani','Baliqchi tumani','Bo‘z tumani','Buloqboshi tumani','Jalaquduq tumani','Izboskan tumani','Ulug‘nor tumani','Qo‘rg‘ontepa tumani','Asaka tumani','Marxamat tumani','Shahrixon tumani','Paxtaobod tumani','Xo‘jaobod tumani','Andijon','Xonobod'],
+  'bxr': ['Olot tumani','Buxoro tumani','Vobkent tumani','G‘ijduvon tumani','Kogon tumani','Qorako‘l tumani','Qorovulbozor tumani','Peshku tumani','Romitan tumani','Jondor tumani','Shofirkon tumani','Buxoro','Kogon'],
+  'frg': ['Oltiariq tumani','Qo‘shtepa tumani','Bog‘dod tumani','Buvayda tumani','Beshariq tumani','Quva tumani','Uchko‘prik tumani','Rishton tumani','So‘x tumani','Toshloq tumani','O‘zbekiston tumani','Farg‘ona tumani','Dang‘ara tumani','Furqat tumani','Yozyovon tumani','Farg‘ona','Qo‘qon','Quvasoy','Marg‘ilon'],
+  'jiz': ['Arnasoy tumani','Baxmal tumani','G‘allaorol tumani','Do‘stlik tumani','Zomin tumani','Zarbdor tumani','Mirzacho‘l tumani','Zafarobod tumani','Paxtakor tumani','Forish tumani','Yangiobod tumani','Jizzax','Sh.Rashidov tumani'],
+  'nmn': ['Mingbuloq tumani','Kosonsoy tumani','Namangan tumani','Norin tumani','Pop tumani','To‘raqo‘rg‘on tumani','Uychi tumani','Uchqo‘rg‘on tumani','Chortoq tumani','Chust tumani','Yangiqo‘rg‘on tumani','Namangan','Davlatobod tumani','Yangi Namangan tumani'],
+  'nvy': ['Konimex tumani','Qiziltepa tumani','Navbahor tumani','Karmana tumani','Nurota tumani','Tomdi tumani','Uchquduq tumani','Xatirchi tumani','Navoiy','Zarafshon','G‘ozg‘on tumani'],
+  'qq': ['Amudaryo tumani','Beruniy tumani','Qorao‘zak tumani','Kegeyli tumani','Qo‘ng‘irot tumani','Qanliko‘l tumani','Mo‘ynoq tumani','Nukus tumani','Taxiatosh tumani','Taxtako‘pir tumani','To‘rtko‘l tumani','Xo‘jayli tumani','Chimboy tumani','Shumanay tumani','Ellikqalʼa tumani','Nukus','Bo‘zatov tumani'],
+  'qsh': ['G‘uzor tumani','Dehqonobod tumani','Qamashi tumani','Qarshi tumani','Koson tumani','Kitob tumani','Mirishkor tumani','Muborak tumani','Nishon tumani','Kasbi tumani','Chiroqchi tumani','Shahrisabz tumani','Yakkabog‘ tumani','Qarshi','Shahrisabz','Ko‘kdala tumani'],
+  'sir': ['Oqoltin tumani','Boyovut tumani','Sayxunobod tumani','Guliston tumani','Sardoba tumani','Mirzaobod tumani','Sirdaryo tumani','Xovos tumani','Guliston','Shirin','Yangier','Baxt shaxar'],
+  'smr': ['Oqdaryo tumani','Bulung‘ur tumani','Jomboy tumani','Ishtixon tumani','Kattaqo‘rg‘on tumani','Qo‘shrabot tumani','Narpay tumani','Payariq tumani','Pastdarg‘om tumani','Paxtachi tumani','Samarqand tumani','Nurobod tumani','Urgut tumani','Tayloq tumani','Samarqand','Kattaqo‘rg‘on'],
+  'sxn': ['Oltinsoy tumani','Angor tumani','Boysun tumani','Muzrabot tumani','Denov tumani','Jarqo‘rg‘on tumani','Qumqo‘rg‘on tumani','Qiziriq tumani','Sariosiyo tumani','Termiz tumani','Uzun tumani','Sherobod tumani','Sho‘rchi tumani','Termiz','Bandixon tumani'],
+  'tsh-c': ['Uchtepa tumani','Bektemir tumani','Yunusobod tumani','Mirzo Ulug‘bek tumani','Mirobod tumani','Shayxontohur tumani','Olmazor tumani','Sirg‘ali tumani','Yakkasaroy tumani','Yashnobod tumani','Chilonzor tumani','Toshkent shahrining tumanlari','Yangihayot tumani'],
+  'tsh-v': ['Oqqo‘rg‘on tumani','Ohangaron tumani','Bekobod tumani','Bo‘stonliq tumani','Bo‘ka tumani','Zangiota tumani','Yuqorichirchiq tumani','Qibray tumani','Parkent tumani','Piskent tumani','O‘rtachirchiq tumani','Chinoz tumani','Yangiyo‘l tumani','Toshkent tumani','Nurafshon','Olmaliq','Angren','Bekobod','Ohangaron','Chirchiq','Yangiyo‘l','Quyichirchiq tumani'],
+  'xrz': ['Bog‘ot tumani','Gurlan tumani','Qo‘shko‘pir tumani','Urganch tumani','Xazorasp tumani','Xonqa tumani','Xiva tumani','Shovot tumani','Yangiariq tumani','Yangibozor tumani','Urganch','Xiva','Tuproqqalʼa tumani'],
 };
 
 function login() { document.getElementById('login').classList.add('hidden'); }
@@ -590,11 +590,11 @@ function loadDistricts() {
   const regionId = document.getElementById('f-region').value;
   const distSel = document.getElementById('f-district');
   if (!regionId) {
-    distSel.innerHTML = '<option value="">— аввал вилоятни танланг —</option>';
+    distSel.innerHTML = '<option value="">— avval viloyatni tanlang —</option>';
     return;
   }
   const districts = DISTRICTS[regionId] || [];
-  distSel.innerHTML = '<option value="">— танланг —</option>' + districts.map(d => `<option value="${d}">${d}</option>`).join('');
+  distSel.innerHTML = '<option value="">— tanlang —</option>' + districts.map(d => `<option value="${d}">${d}</option>`).join('');
 }
 
 const uploadZone = document.getElementById('upload-zone');
