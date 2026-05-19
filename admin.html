@@ -526,7 +526,7 @@ input, select, textarea { font-family: inherit; font-size: inherit; color: var(-
 
                 <div class="field full">
                   <label>Маҳалла *</label>
-                  <select id="f-mahalla"><option value="">— аввал туманни танланг —</option></select>
+                  <input type="text" id="f-mahalla" placeholder="Маҳалла номини киритинг (масалан: Регистон МФЙ)">
                 </div>
 
                 <div class="field full">
@@ -708,42 +708,17 @@ const DISTRICTS = {
   'tsh-v': ['Бекобод шаҳри','Олмалиқ шаҳри','Ангрен шаҳри','Бекобод тумани','Бўка тумани','Бўстонлиқ тумани','Зангиота тумани','Қибрай тумани','Қуйичирчиқ тумани','Оҳангарон тумани'],
   'nmn': ['Наманган шаҳри','Косонсой шаҳри','Тошлоқ шаҳри','Чортоқ шаҳри','Чуст шаҳри','Янгиқўрғон тумани','Поп тумани','Норин тумани','Мингбулоқ тумани','Уйчи тумани'],
 };
-const MAHALLAS = {
-  'Каттақўрғон тумани': ['Беш-тол МФЙ','Олмазор МФЙ','Боғибаланд МФЙ','Янгиобод МФЙ','Бошланғич МФЙ','Истиқлол МФЙ','Дўстлик МФЙ'],
-  'Самарқанд шаҳри': ['Регистон МФЙ','Сартепо МФЙ','Богишамол МФЙ','Боғибаланд МФЙ','Сирлисой МФЙ','Ўрда МФЙ','Тошкент МФЙ'],
-  'Чилонзор тумани': ['1-мавзе МФЙ','15-мавзе МФЙ','Дўстлик МФЙ','Янги ҳаёт МФЙ','Чилонзор МФЙ','Қатортол МФЙ'],
-};
-
 function login() { document.getElementById('login').classList.add('hidden'); }
 
 function loadDistricts() {
   const regionId = document.getElementById('f-region').value;
   const distSel = document.getElementById('f-district');
-  const mahSel = document.getElementById('f-mahalla');
   if (!regionId) {
     distSel.innerHTML = '<option value="">— аввал вилоятни танланг —</option>';
-    mahSel.innerHTML = '<option value="">— аввал туманни танланг —</option>';
     return;
   }
   const districts = DISTRICTS[regionId] || ['(Бу вилоят учун рўйхат тизим базасидан кейин кириб келади)'];
   distSel.innerHTML = '<option value="">— танланг —</option>' + districts.map(d => `<option value="${d}">${d}</option>`).join('');
-  distSel.onchange = loadMahallas;
-  mahSel.innerHTML = '<option value="">— аввал туманни танланг —</option>';
-}
-
-function loadMahallas() {
-  const distName = document.getElementById('f-district').value;
-  const mahSel = document.getElementById('f-mahalla');
-  if (!distName) {
-    mahSel.innerHTML = '<option value="">— аввал туманни танланг —</option>';
-    return;
-  }
-  const mahallas = MAHALLAS[distName] || [
-    '(' + distName + ') · намуна МФЙ 1',
-    '(' + distName + ') · намуна МФЙ 2',
-    '(' + distName + ') · намуна МФЙ 3',
-  ];
-  mahSel.innerHTML = '<option value="">— танланг —</option>' + mahallas.map(m => `<option value="${m}">${m}</option>`).join('');
 }
 
 const uploadZone = document.getElementById('upload-zone');
