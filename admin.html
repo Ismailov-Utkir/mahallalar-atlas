@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="uz-Cyrl">
+<head>
+<meta charset="UTF-8">
+<title>Админ панел · Ўзбекистон Маҳаллалари Уюшмаси</title>
+<meta name="viewport" content="width=1280, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans:ital,wght@0,400;0,700;1,400&family=PT+Sans+Narrow:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#074b8a; --navy-deep:#053a6d; --navy-darker:#042e57; --navy-light:#1a6bb0; --navy-pale:#e8eff6;
+  --gold:#d4a946; --gold-soft:#f3e4b6;
+  --cream:#fdfbf5; --white:#fff;
+  --gray-50:#f7f7f4; --gray-100:#ececea; --gray-150:#e0ddd6; --gray-200:#d2cfc7; --gray-300:#b8b4ab; --gray-400:#908d85; --gray-600:#5e5b54; --gray-700:#3a3835;
+  --ink:#14171c; --rule:#e0ddd6; --rule-soft:#ececea;
+  --warm:#b85c3a; --success:#2c7a4b; --danger:#b85c3a;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--gray-50); color: var(--ink);
+  font-family: 'PT Sans', sans-serif; font-size: 13.5px; line-height: 1.5;
+  min-height: 100vh; -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: 'PT Serif', serif; font-weight: 700; letter-spacing: -0.01em; }
+button { font-family: inherit; cursor: pointer; border: 0; background: 0; color: inherit; }
+button:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: var(--ink); }
+
+/* LOGIN */
+.login-overlay {
+  position: fixed; inset: 0;
+  background: var(--navy);
+  background-image: radial-gradient(ellipse at top, rgba(212,169,70,0.15) 0%, transparent 60%), linear-gradient(135deg, var(--navy) 0%, var(--navy-darker) 100%);
+  display: flex; align-items: center; justify-content: center; z-index: 10000;
+}
+.login-overlay.hidden { display: none; }
+.login-card {
+  width: 400px; background: var(--white); padding: 44px 40px 32px;
+  position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+.login-card::before {
+  content: ''; position: absolute; top: -1px; left: -1px; right: -1px; height: 4px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold) 33%, var(--navy) 33%, var(--navy) 66%, var(--gold) 66%);
+}
+.login-mark {
+  width: 56px; height: 56px; border: 2px solid var(--gold); border-radius: 50%;
+  display: grid; place-items: center; margin: 0 auto 18px;
+  font-family: 'PT Serif', serif; font-weight: 700; font-size: 24px;
+  color: var(--navy); background: var(--cream);
+}
+.login-card h2 {
+  text-align: center; font-size: 20px; margin-bottom: 4px; color: var(--ink);
+  text-transform: uppercase; letter-spacing: 0.02em;
+}
+.login-sub {
+  text-align: center; font-family: 'PT Serif', serif; font-style: italic;
+  font-size: 13px; color: var(--gray-600); margin-bottom: 28px;
+}
+.field { margin-bottom: 16px; }
+.field label {
+  display: block; font-family: 'PT Sans Narrow', sans-serif; font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-400);
+  margin-bottom: 6px; font-weight: 700;
+}
+.field input, .field select, .field textarea {
+  width: 100%; padding: 10px 13px; background: var(--white);
+  border: 1px solid var(--gray-200); border-radius: 2px;
+  transition: border-color 0.15s;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: 0; border-color: var(--navy);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px; border: 1px solid var(--gray-200); border-radius: 2px;
+  background: var(--white); font-size: 13px; color: var(--gray-700);
+  transition: all 0.15s;
+}
+.btn:hover { border-color: var(--navy); color: var(--navy); }
+.btn-primary { background: var(--navy); color: var(--white); border-color: var(--navy); font-weight: 700; }
+.btn-primary:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: var(--white); }
+.btn-gold { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); font-weight: 700; }
+.btn-gold:hover { background: #e8be5a; border-color: #e8be5a; }
+.btn-full { width: 100%; justify-content: center; padding: 12px; }
+.btn-icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+
+/* APP */
+.app { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  background: var(--navy); color: var(--white);
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; height: 100vh;
+}
+.side-brand {
+  padding: 18px 22px; border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; gap: 12px; position: relative;
+}
+.side-brand::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold) 50%, transparent 50%);
+}
+.side-mark {
+  width: 36px; height: 36px; border: 2px solid var(--gold); border-radius: 50%;
+  display: grid; place-items: center; font-family: 'PT Serif', serif;
+  font-weight: 700; font-size: 16px; color: var(--gold);
+}
+.side-brand h1 {
+  font-size: 13px; line-height: 1.15; color: var(--white);
+  text-transform: uppercase; letter-spacing: 0.02em; margin: 0;
+}
+.side-brand small {
+  display: block; font-family: 'PT Serif', serif; font-style: italic;
+  font-size: 11.5px; color: rgba(255,255,255,0.65); margin-top: 2px;
+}
+.side-nav { padding: 14px 0; flex: 1; overflow-y: auto; }
+.side-nav .nav-section {
+  font-family: 'PT Sans Narrow', sans-serif; font-size: 10.5px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); padding: 10px 22px 6px;
+  margin-top: 8px; font-weight: 700;
+}
+.side-nav a {
+  display: flex; align-items: center; gap: 11px; padding: 10px 22px;
+  font-size: 13.5px; color: rgba(255,255,255,0.82); text-decoration: none;
+  border-left: 3px solid transparent; transition: all 0.15s;
+}
+.side-nav a:hover { background: rgba(255,255,255,0.06); color: var(--white); }
+.side-nav a.active {
+  background: rgba(255,255,255,0.08); border-left-color: var(--gold);
+  color: var(--white); font-weight: 700;
+}
+.side-nav svg {
+  width: 16px; height: 16px; stroke: currentColor; fill: none;
+  stroke-width: 1.6; flex-shrink: 0; opacity: 0.85;
+}
+.side-nav a.active svg { opacity: 1; color: var(--gold); }
+.side-user {
+  padding: 14px 22px; border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; gap: 10px;
+}
+.user-avatar {
+  width: 34px; height: 34px; background: var(--gold); color: var(--navy-deep);
+  border-radius: 50%; display: grid; place-items: center;
+  font-family: 'PT Serif', serif; font-weight: 700; font-size: 14px;
+}
+.user-info { flex: 1; min-width: 0; }
+.user-info strong { display: block; font-size: 12.5px; color: var(--white); }
+.user-info small { font-size: 11px; color: rgba(255,255,255,0.6); }
+.user-logout {
+  color: rgba(255,255,255,0.6); cursor: pointer; padding: 4px;
+  transition: color 0.15s;
+}
+.user-logout:hover { color: var(--gold); }
+
+/* MAIN */
+.main { background: var(--gray-50); }
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--rule);
+  padding: 16px 32px; display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+.page-title { display: flex; align-items: baseline; gap: 14px; }
+.page-title h2 { font-size: 22px; color: var(--ink); }
+.page-title .crumbs {
+  font-family: 'PT Serif', serif; font-style: italic;
+  font-size: 13px; color: var(--gray-400);
+}
+.topbar-actions { display: flex; gap: 10px; }
+.page-content { padding: 28px 32px 60px; max-width: 1400px; }
+
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+.stat-card {
+  background: var(--white); border: 1px solid var(--rule);
+  padding: 20px 22px; position: relative;
+  transition: border-color 0.15s;
+}
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--navy);
+}
+.stat-card.gold::before { background: var(--gold); }
+.stat-card.warm::before { background: var(--warm); }
+.stat-card:hover { border-color: var(--gray-300); }
+.stat-card .label {
+  font-family: 'PT Sans Narrow', sans-serif; font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 10px; font-weight: 700;
+}
+.stat-card .num {
+  font-family: 'PT Serif', serif; font-weight: 700; font-size: 30px;
+  line-height: 1; letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums; color: var(--navy-deep);
+}
+.stat-card.warm .num { color: var(--warm); }
+.stat-card .delta {
+  margin-top: 8px; font-size: 11px; color: var(--success);
+  font-family: 'PT Sans Narrow', sans-serif;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.stat-card .delta.down { color: var(--warm); }
+
+/* CARDS */
+.two-col { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+.card { background: var(--white); border: 1px solid var(--rule); }
+.card-header {
+  padding: 14px 22px; border-bottom: 1px solid var(--rule-soft);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--gray-50);
+}
+.card-header h3 { font-size: 15px; color: var(--ink); }
+.card-header .eyebrow {
+  font-family: 'PT Sans Narrow', sans-serif; font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray-400); font-weight: 700;
+}
+.card-body { padding: 22px; }
+
+/* FORM */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-grid .field.full { grid-column: 1 / -1; }
+.field textarea { min-height: 90px; resize: vertical; }
+.field-hint {
+  font-family: 'PT Serif', serif; font-style: italic;
+  font-size: 11.5px; color: var(--gray-400); margin-top: 4px;
+}
+.upload-zone {
+  border: 2px dashed var(--gray-200); background: var(--gray-50);
+  padding: 32px 20px; text-align: center; border-radius: 2px;
+  cursor: pointer; transition: all 0.2s; display: block;
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--navy); background: var(--navy-pale);
+}
+.upload-icon { width: 42px; height: 42px; margin: 0 auto 10px; color: var(--navy-light); }
+.upload-icon svg { width: 100%; height: 100%; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.upload-zone strong {
+  display: block; color: var(--ink); font-family: 'PT Serif', serif;
+  font-size: 14px; margin-bottom: 4px;
+}
+.upload-zone small { color: var(--gray-400); font-size: 11.5px; }
+.upload-preview {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 8px; margin-top: 14px;
+}
+.upload-preview .item {
+  position: relative; aspect-ratio: 1; background: var(--gray-100);
+  background-size: cover; background-position: center; border: 1px solid var(--rule);
+}
+.upload-preview .item .remove {
+  position: absolute; top: 4px; right: 4px; width: 20px; height: 20px;
+  background: var(--navy); color: var(--white); border-radius: 50%;
+  font-size: 13px; display: grid; place-items: center; cursor: pointer;
+}
+.upload-preview .item .remove:hover { background: var(--danger); }
+.form-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--rule-soft);
+}
+.form-footer .hint {
+  font-family: 'PT Serif', serif; font-style: italic;
+  font-size: 12.5px; color: var(--gray-400);
+}
+
+/* TABLE */
+.event-table-wrap { background: var(--white); border: 1px solid var(--rule); }
+.table-controls {
+  padding: 14px 22px; border-bottom: 1px solid var(--rule-soft);
+  display: flex; gap: 10px; align-items: center; background: var(--gray-50);
+}
+.search-input {
+  flex: 1; padding: 9px 13px; background: var(--white);
+  border: 1px solid var(--gray-200); font-size: 13px;
+}
+.search-input:focus { outline: 0; border-color: var(--navy); }
+.event-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.event-table th {
+  text-align: left; padding: 11px 22px;
+  font-family: 'PT Sans Narrow', sans-serif; font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray-400); font-weight: 700;
+  background: var(--gray-50); border-bottom: 1px solid var(--rule);
+}
+.event-table td {
+  padding: 13px 22px; border-bottom: 1px dotted var(--rule);
+  vertical-align: middle;
+}
+.event-table tr:hover td { background: var(--navy-pale); }
+.event-table .ev-title {
+  font-family: 'PT Serif', serif; font-weight: 700;
+  font-size: 13.5px; color: var(--ink);
+}
+.event-table .ev-loc { font-size: 11.5px; color: var(--gray-400); margin-top: 2px; }
+.event-table .ev-date {
+  font-family: 'PT Sans Narrow', sans-serif; text-transform: uppercase;
+  color: var(--navy); letter-spacing: 0.05em; font-weight: 700;
+}
+.badge {
+  display: inline-block; padding: 3px 9px; font-size: 10.5px;
+  background: var(--gray-100); color: var(--gray-600); border-radius: 2px;
+  font-family: 'PT Sans Narrow', sans-serif;
+  letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+}
+.badge.green { background: rgba(44, 122, 75, 0.12); color: var(--success); }
+.badge.gold { background: var(--gold-soft); color: #8b6e26; }
+.row-actions { display: flex; gap: 4px; }
+.row-actions button {
+  padding: 4px 10px; font-size: 11.5px; color: var(--gray-400);
+  border: 1px solid transparent; border-radius: 2px;
+}
+.row-actions button:hover { color: var(--navy); border-color: var(--rule); }
+.row-actions button.del:hover { color: var(--danger); border-color: var(--danger); }
+.pagination {
+  padding: 14px 22px; display: flex; justify-content: space-between;
+  align-items: center; border-top: 1px solid var(--rule-soft);
+  font-size: 12px; color: var(--gray-400); background: var(--gray-50);
+}
+.pagination .pages { display: flex; gap: 4px; }
+.pagination .pages button {
+  width: 30px; height: 30px; border: 1px solid var(--rule);
+  font-size: 12px; color: var(--gray-600); background: var(--white);
+}
+.pagination .pages button.active {
+  background: var(--navy); color: var(--white); border-color: var(--navy);
+}
+
+/* ACTIVITY */
+.activity-item {
+  padding: 14px 22px; border-bottom: 1px dotted var(--rule);
+  display: grid; grid-template-columns: 48px 1fr; gap: 12px;
+}
+.activity-item:last-child { border-bottom: 0; }
+.activity-date {
+  text-align: center; font-family: 'PT Sans Narrow', sans-serif;
+  text-transform: uppercase; font-size: 10.5px;
+  color: var(--gray-400); letter-spacing: 0.08em; font-weight: 700;
+}
+.activity-date b {
+  display: block; font-family: 'PT Serif', serif; font-weight: 700;
+  font-size: 19px; color: var(--navy); margin-bottom: 1px;
+}
+.activity-title {
+  font-family: 'PT Serif', serif; font-weight: 700;
+  font-size: 13.5px; color: var(--ink); margin-bottom: 2px;
+}
+.activity-meta { font-size: 11.5px; color: var(--gray-400); }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 30px; right: 30px;
+  padding: 14px 22px; background: var(--navy); color: var(--white);
+  border-left: 4px solid var(--gold);
+  font-size: 13px; box-shadow: 0 12px 40px rgba(7, 75, 138, 0.4);
+  transform: translateY(120px); transition: transform 0.3s; z-index: 9000;
+}
+.toast.visible { transform: translateY(0); }
+.toast strong { font-family: 'PT Serif', serif; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="login-overlay" id="login">
+  <div class="login-card">
+    <div class="login-mark">Ў</div>
+    <h2>Кириш</h2>
+    <p class="login-sub">Ўзбекистон Маҳаллалари Уюшмаси · бошқарув тизими</p>
+    <form onsubmit="event.preventDefault(); login();">
+      <div class="field">
+        <label>Фойдаланувчи номи</label>
+        <input type="text" value="admin" autocomplete="username">
+      </div>
+      <div class="field">
+        <label>Парол</label>
+        <input type="password" value="••••••••" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Тизимга кириш</button>
+    </form>
+    <p style="margin-top: 22px; text-align: center; font-family: 'PT Serif', serif; font-style: italic; font-size: 11.5px; color: var(--gray-400);">
+      Парол ёки кириш муаммосида тизим маъмурига мурожаат қилинг.
+    </p>
+  </div>
+</div>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="side-brand">
+      <div class="side-mark">Ў</div>
+      <div>
+        <h1>МАҲАЛЛАЛАР УЮШМАСИ</h1>
+        <small>Тадбирлар атласи · админ панел</small>
+      </div>
+    </div>
+
+    <nav class="side-nav">
+      <div class="nav-section">Бошқарув</div>
+      <a href="#" class="active">
+        <svg viewBox="0 0 24 24"><path d="M3 12 12 3l9 9M5 10v10h14V10"/></svg>
+        Бош саҳифа
+      </a>
+      <a href="#new">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        Янги тадбир қўшиш
+      </a>
+      <a href="#events">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Барча тадбирлар
+      </a>
+      <a href="#photos">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+        Расмлар архиви
+      </a>
+      <div class="nav-section">Ҳудудлар</div>
+      <a href="#regions">
+        <svg viewBox="0 0 24 24"><path d="M12 22s-8-7-8-13a8 8 0 0 1 16 0c0 6-8 13-8 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        Картадаги ҳудудлар
+      </a>
+      <a href="#districts">
+        <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+        Туман ва маҳаллалар
+      </a>
+      <div class="nav-section">Тизим</div>
+      <a href="#users">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Фойдаланувчилар
+      </a>
+      <a href="#settings">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Созламалар
+      </a>
+    </nav>
+
+    <div class="side-user">
+      <div class="user-avatar">М</div>
+      <div class="user-info">
+        <strong>Маъмур</strong>
+        <small>admin@mahallas.uz</small>
+      </div>
+      <div class="user-logout" title="Чиқиш" onclick="document.getElementById('login').classList.remove('hidden');">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <div class="page-title">
+        <h2>Бош саҳифа</h2>
+        <span class="crumbs">админ панел · 19 май 2026</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn" onclick="window.location.href='/'">
+          <svg class="btn-icon" viewBox="0 0 24 24"><path d="M12 22s-8-7-8-13a8 8 0 0 1 16 0c0 6-8 13-8 13z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Жамоат картасига ўтиш
+        </button>
+        <button class="btn btn-gold" onclick="scrollToForm()">+ Янги тадбир</button>
+      </div>
+    </div>
+
+    <div class="page-content">
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">Жорий ой · май</div>
+          <div class="num">168</div>
+          <div class="delta">↑ 14% ўтган ойга нисбатан</div>
+        </div>
+        <div class="stat-card gold">
+          <div class="label">Йил бошидан</div>
+          <div class="num">593</div>
+          <div class="delta">5 ой ичида</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Юкланган расмлар</div>
+          <div class="num">3 891</div>
+          <div class="delta">бугун — 12 та</div>
+        </div>
+        <div class="stat-card warm">
+          <div class="label">Кутилмоқда</div>
+          <div class="num">7</div>
+          <div class="delta down">текширишни кутаяпти</div>
+        </div>
+      </div>
+
+      <div class="two-col">
+
+        <div class="card" id="new">
+          <div class="card-header">
+            <h3>Янги тадбир қўшиш</h3>
+            <span class="eyebrow">Маълумотлар</span>
+          </div>
+          <div class="card-body">
+            <form onsubmit="event.preventDefault(); submitEvent();">
+              <div class="form-grid">
+
+                <div class="field">
+                  <label>Вилоят / Республика *</label>
+                  <select id="f-region" onchange="loadDistricts()">
+                    <option value="">— танланг —</option>
+                    <option value="qq">Қорақалпоғистон Республикаси</option>
+                    <option value="xrz">Хоразм вилояти</option>
+                    <option value="nvy">Навоий вилояти</option>
+                    <option value="bxr">Бухоро вилояти</option>
+                    <option value="qsh">Қашқадарё вилояти</option>
+                    <option value="sxn">Сурхондарё вилояти</option>
+                    <option value="smr" selected>Самарқанд вилояти</option>
+                    <option value="jiz">Жиззах вилояти</option>
+                    <option value="sir">Сирдарё вилояти</option>
+                    <option value="tsh-v">Тошкент вилояти</option>
+                    <option value="tsh-c">Тошкент шаҳри</option>
+                    <option value="nmn">Наманган вилояти</option>
+                    <option value="frg">Фарғона вилояти</option>
+                    <option value="and">Андижон вилояти</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label>Туман / Шаҳар *</label>
+                  <select id="f-district"><option value="">— аввал вилоятни танланг —</option></select>
+                </div>
+
+                <div class="field full">
+                  <label>Маҳалла *</label>
+                  <select id="f-mahalla"><option value="">— аввал туманни танланг —</option></select>
+                </div>
+
+                <div class="field full">
+                  <label>Тадбир номи *</label>
+                  <input type="text" placeholder="Масалан: Маҳалла оқсоқоллари йиғилиши">
+                </div>
+
+                <div class="field">
+                  <label>Ўтказилган сана *</label>
+                  <input type="date" value="2026-05-19">
+                </div>
+
+                <div class="field">
+                  <label>Иштирокчилар сони *</label>
+                  <input type="number" placeholder="0" min="1">
+                </div>
+
+                <div class="field full">
+                  <label>Тадбир турини танланг *</label>
+                  <select>
+                    <option>Маҳалла йиғилиши</option>
+                    <option>Маънавий-маърифий учрашув</option>
+                    <option>Кўчат экиш / ободонлаштириш</option>
+                    <option>Тинчлик ва осойишталик кенгаши</option>
+                    <option>Ёшлар форуми</option>
+                    <option>Спорт мусобақаси ("5 ташаббус")</option>
+                    <option>"Темир дафтар" / "Аёллар дафтари" иш</option>
+                    <option>Бошқа</option>
+                  </select>
+                </div>
+
+                <div class="field full">
+                  <label>Қисқача баён</label>
+                  <textarea placeholder="Тадбир ҳақида қисқача маълумот, асосий мавзу, натижалар…"></textarea>
+                  <div class="field-hint">Иложи борича аниқ ва қисқа ёзинг — кейин қидиришда қулай бўлади.</div>
+                </div>
+
+                <div class="field full">
+                  <label>Расмлар (бир неча расм юклаш мумкин)</label>
+                  <label class="upload-zone" id="upload-zone">
+                    <input type="file" multiple accept="image/*" style="display: none;" id="file-input" onchange="handleFiles(this.files)">
+                    <div class="upload-icon">
+                      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                    </div>
+                    <strong>Файлларни шу ерга судраб ташланг</strong>
+                    <small>ёки босинг — JPG, PNG, WebP · ҳар бир расм 5 МБ гача</small>
+                  </label>
+                  <div class="upload-preview" id="preview"></div>
+                </div>
+
+              </div>
+
+              <div class="form-footer">
+                <span class="hint">Юлдузча (*) билан белгиланганлар мажбурий</span>
+                <div style="display: flex; gap: 10px;">
+                  <button type="button" class="btn">Бекор қилиш</button>
+                  <button type="submit" class="btn btn-primary">Сақлаш</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Сўнгги ҳаракатлар</h3>
+            <span class="eyebrow">Бугун</span>
+          </div>
+          <div class="activity-item"><div class="activity-date"><b>19</b>МАЙ</div><div><div class="activity-title">Маҳалла йиғилиши — Самарқанд</div><div class="activity-meta">Каттақўрғон тумани · 142 иштирокчи · 8 расм</div></div></div>
+          <div class="activity-item"><div class="activity-date"><b>19</b>МАЙ</div><div><div class="activity-title">Ёшлар форуми — Андижон</div><div class="activity-meta">Андижон шаҳри · 287 иштирокчи · 14 расм</div></div></div>
+          <div class="activity-item"><div class="activity-date"><b>18</b>МАЙ</div><div><div class="activity-title">Кўчат экиш аксияси — Бухоро</div><div class="activity-meta">Олот тумани · 95 иштирокчи · 12 расм</div></div></div>
+          <div class="activity-item"><div class="activity-date"><b>18</b>МАЙ</div><div><div class="activity-title">Тинчлик кенгаши — Тошкент</div><div class="activity-meta">Чилонзор тумани · 64 иштирокчи · 6 расм</div></div></div>
+          <div class="activity-item"><div class="activity-date"><b>17</b>МАЙ</div><div><div class="activity-title">"Беш ташаббус" гандбол — Фарғона</div><div class="activity-meta">Қўқон шаҳри · 178 иштирокчи · 9 расм</div></div></div>
+        </div>
+
+      </div>
+
+      <div class="event-table-wrap" id="events" style="margin-top: 28px;">
+        <div class="card-header">
+          <h3>Барча тадбирлар</h3>
+          <span class="eyebrow">593 та ёзув</span>
+        </div>
+        <div class="table-controls">
+          <input type="text" class="search-input" placeholder="Тадбир номи, ҳудуд бўйича қидириш…">
+          <select style="padding: 9px 13px; background: var(--white); border: 1px solid var(--gray-200);">
+            <option>Барча вилоятлар</option><option>Самарқанд</option><option>Тошкент ш.</option><option>Фарғона</option>
+          </select>
+          <select style="padding: 9px 13px; background: var(--white); border: 1px solid var(--gray-200);">
+            <option>Май 2026</option><option>Апрель 2026</option><option>Йил бошидан</option>
+          </select>
+        </div>
+        <table class="event-table">
+          <thead><tr>
+            <th style="width: 90px;">Сана</th>
+            <th>Тадбир</th>
+            <th style="width: 200px;">Жой</th>
+            <th style="width: 90px;">Иштирокчи</th>
+            <th style="width: 90px;">Расмлар</th>
+            <th style="width: 110px;">Ҳолат</th>
+            <th style="width: 100px;">Амал</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="ev-date">19 май</span></td>
+              <td><div class="ev-title">Маҳалла йиғилиши</div><div class="ev-loc">Каттақўрғон туманидаги фаоллар билан учрашув</div></td>
+              <td>Самарқанд / Каттақўрғон</td><td>142</td><td>8</td>
+              <td><span class="badge green">Чоп этилди</span></td>
+              <td><div class="row-actions"><button>Таҳрир</button><button class="del">Ўчир</button></div></td>
+            </tr>
+            <tr>
+              <td><span class="ev-date">19 май</span></td>
+              <td><div class="ev-title">Ёшлар форуми "Келажак"</div><div class="ev-loc">Касб-ҳунар йўналишлари бўйича маслаҳат</div></td>
+              <td>Андижон / Андижон ш.</td><td>287</td><td>14</td>
+              <td><span class="badge green">Чоп этилди</span></td>
+              <td><div class="row-actions"><button>Таҳрир</button><button class="del">Ўчир</button></div></td>
+            </tr>
+            <tr>
+              <td><span class="ev-date">18 май</span></td>
+              <td><div class="ev-title">Кўчат экиш аксияси</div><div class="ev-loc">Республика субботниги доирасида</div></td>
+              <td>Бухоро / Олот тумани</td><td>95</td><td>12</td>
+              <td><span class="badge green">Чоп этилди</span></td>
+              <td><div class="row-actions"><button>Таҳрир</button><button class="del">Ўчир</button></div></td>
+            </tr>
+            <tr>
+              <td><span class="ev-date">18 май</span></td>
+              <td><div class="ev-title">Тинчлик ва осойишталик кенгаши</div><div class="ev-loc">Маҳалла идорасида ҳафталик йиғилиш</div></td>
+              <td>Тошкент ш. / Чилонзор</td><td>64</td><td>6</td>
+              <td><span class="badge green">Чоп этилди</span></td>
+              <td><div class="row-actions"><button>Таҳрир</button><button class="del">Ўчир</button></div></td>
+            </tr>
+            <tr>
+              <td><span class="ev-date">17 май</span></td>
+              <td><div class="ev-title">"Беш ташаббус" гандбол мусобақаси</div><div class="ev-loc">Маҳалла босқичи иштирокчилари</div></td>
+              <td>Фарғона / Қўқон ш.</td><td>178</td><td>9</td>
+              <td><span class="badge gold">Текширилмоқда</span></td>
+              <td><div class="row-actions"><button>Таҳрир</button><button class="del">Ўчир</button></div></td>
+            </tr>
+            <tr>
+              <td><span class="ev-date">15 май</span></td>
+              <td><div class="ev-title">Регистон тинчлик байрами</div><div class="ev-loc">Шаҳар марказида катта тадбир</div></td>
+              <td>Самарқанд / Самарқанд ш.</td><td>420</td><td>23</td>
+              <td><span class="badge green">Чоп этилди</span></td>
+              <td><div class="row-actions"><button>Таҳрир</button><button class="del">Ўчир</button></div></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pagination">
+          <span>1 – 6 / 593 ёзув</span>
+          <div class="pages">
+            <button class="active">1</button><button>2</button><button>3</button><button>…</button><button>99</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast">
+  <strong>Сақланди</strong> · тадбир муваффақиятли қўшилди
+</div>
+
+<script>
+const DISTRICTS = {
+  'smr': ['Самарқанд шаҳри','Иштихон тумани','Каттақўрғон шаҳри','Каттақўрғон тумани','Ургут тумани','Тойлоқ тумани','Пайариқ тумани','Оқдарё тумани','Жомбой тумани','Пастдарғом тумани','Нарпай тумани','Қўшработ тумани'],
+  'tsh-c': ['Чилонзор тумани','Юнусобод тумани','Мирзо Улуғбек тумани','Шайхонтоҳур тумани','Олмазор тумани','Учтепа тумани','Сирғали тумани','Яккасарой тумани','Яшнобод тумани','Мирободтум.','Бектемир тумани'],
+  'frg': ['Фарғона шаҳри','Қўқон шаҳри','Марғилон шаҳри','Қувасой шаҳри','Олтиариқ тумани','Бағдод тумани','Бешариқ тумани','Бувайда тумани','Дангара тумани','Ёзёвон тумани'],
+  'qsh': ['Қарши шаҳри','Шаҳрисабз шаҳри','Китоб тумани','Деҳқонобод тумани','Касби тумани','Чироқчи тумани','Қамаши тумани','Кошкадарё тумани','Муборак тумани','Нишон тумани'],
+  'bxr': ['Бухоро шаҳри','Когон шаҳри','Олот тумани','Вобкент тумани','Ғиждувон тумани','Жондор тумани','Қоракўл тумани','Қоровулбозор тумани','Пешку тумани','Ромитан тумани'],
+  'and': ['Андижон шаҳри','Хонобод шаҳри','Асака тумани','Балиқчи тумани','Бўз тумани','Жалақудуқ тумани','Избоскан тумани','Қўрғонтепа тумани','Мархамат тумани','Олтинкўл тумани'],
+  'qq': ['Нукус шаҳри','Беруний тумани','Чимбой тумани','Элликқалъа тумани','Хўжайли тумани','Қанликўл тумани','Қораўзак тумани','Кегейли тумани','Мўйноқ тумани','Нукус тумани'],
+  'xrz': ['Урганч шаҳри','Хива шаҳри','Бағат тумани','Гурлан тумани','Кошкўпир тумани','Хазорасп тумани','Хонқа тумани'],
+  'nvy': ['Навоий шаҳри','Зарафшон шаҳри','Кармана тумани','Конимех тумани','Қизилтепа тумани','Навбаҳор тумани','Нурота тумани','Тамдин тумани','Учқудуқ тумани'],
+  'sxn': ['Термиз шаҳри','Олтинсой тумани','Бойсун тумани','Денов тумани','Жарқўрғон тумани','Қизириқ тумани','Қумқўрғон тумани','Музработ тумани','Сариосиё тумани','Шеробод тумани'],
+  'jiz': ['Жиззах шаҳри','Арнасой тумани','Бахмал тумани','Дўстлик тумани','Ғаллаорол тумани','Зомин тумани','Зарбдор тумани','Мирзачўл тумани','Пахтакор тумани','Фориш тумани'],
+  'sir': ['Гулистон шаҳри','Янгиер шаҳри','Боёвут тумани','Гулистон тумани','Мирзаобод тумани','Оқолтин тумани','Сайхунобод тумани','Сардоба тумани','Хавос тумани','Шароф Рашидов тумани'],
+  'tsh-v': ['Бекобод шаҳри','Олмалиқ шаҳри','Ангрен шаҳри','Бекобод тумани','Бўка тумани','Бўстонлиқ тумани','Зангиота тумани','Қибрай тумани','Қуйичирчиқ тумани','Оҳангарон тумани'],
+  'nmn': ['Наманган шаҳри','Косонсой шаҳри','Тошлоқ шаҳри','Чортоқ шаҳри','Чуст шаҳри','Янгиқўрғон тумани','Поп тумани','Норин тумани','Мингбулоқ тумани','Уйчи тумани'],
+};
+const MAHALLAS = {
+  'Каттақўрғон тумани': ['Беш-тол МФЙ','Олмазор МФЙ','Боғибаланд МФЙ','Янгиобод МФЙ','Бошланғич МФЙ','Истиқлол МФЙ','Дўстлик МФЙ'],
+  'Самарқанд шаҳри': ['Регистон МФЙ','Сартепо МФЙ','Богишамол МФЙ','Боғибаланд МФЙ','Сирлисой МФЙ','Ўрда МФЙ','Тошкент МФЙ'],
+  'Чилонзор тумани': ['1-мавзе МФЙ','15-мавзе МФЙ','Дўстлик МФЙ','Янги ҳаёт МФЙ','Чилонзор МФЙ','Қатортол МФЙ'],
+};
+
+function login() { document.getElementById('login').classList.add('hidden'); }
+
+function loadDistricts() {
+  const regionId = document.getElementById('f-region').value;
+  const distSel = document.getElementById('f-district');
+  const mahSel = document.getElementById('f-mahalla');
+  if (!regionId) {
+    distSel.innerHTML = '<option value="">— аввал вилоятни танланг —</option>';
+    mahSel.innerHTML = '<option value="">— аввал туманни танланг —</option>';
+    return;
+  }
+  const districts = DISTRICTS[regionId] || ['(Бу вилоят учун рўйхат тизим базасидан кейин кириб келади)'];
+  distSel.innerHTML = '<option value="">— танланг —</option>' + districts.map(d => `<option value="${d}">${d}</option>`).join('');
+  distSel.onchange = loadMahallas;
+  mahSel.innerHTML = '<option value="">— аввал туманни танланг —</option>';
+}
+
+function loadMahallas() {
+  const distName = document.getElementById('f-district').value;
+  const mahSel = document.getElementById('f-mahalla');
+  if (!distName) {
+    mahSel.innerHTML = '<option value="">— аввал туманни танланг —</option>';
+    return;
+  }
+  const mahallas = MAHALLAS[distName] || [
+    '(' + distName + ') · намуна МФЙ 1',
+    '(' + distName + ') · намуна МФЙ 2',
+    '(' + distName + ') · намуна МФЙ 3',
+  ];
+  mahSel.innerHTML = '<option value="">— танланг —</option>' + mahallas.map(m => `<option value="${m}">${m}</option>`).join('');
+}
+
+const uploadZone = document.getElementById('upload-zone');
+const preview = document.getElementById('preview');
+['dragenter','dragover'].forEach(ev =>
+  uploadZone.addEventListener(ev, e => { e.preventDefault(); uploadZone.classList.add('dragover'); })
+);
+['dragleave','drop'].forEach(ev =>
+  uploadZone.addEventListener(ev, e => { e.preventDefault(); uploadZone.classList.remove('dragover'); })
+);
+uploadZone.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+
+function handleFiles(files) {
+  Array.from(files).forEach(f => {
+    if (!f.type.startsWith('image/')) return;
+    const url = URL.createObjectURL(f);
+    const item = document.createElement('div');
+    item.className = 'item';
+    item.style.backgroundImage = `url(${url})`;
+    item.innerHTML = '<div class="remove" onclick="this.parentElement.remove()">×</div>';
+    preview.appendChild(item);
+  });
+}
+
+function submitEvent() {
+  const toast = document.getElementById('toast');
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 3000);
+}
+
+function scrollToForm() {
+  document.getElementById('new').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+loadDistricts();
+</script>
+</body>
+</html>
